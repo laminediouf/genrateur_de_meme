@@ -1,5 +1,5 @@
 
-var memeSize = 150;
+var memeSize = 250;
 
 var canvas = document.getElementById('memecanvas');
 ctx = canvas.getContext('2d');
@@ -90,3 +90,86 @@ function wrapText(context, text, x, y, maxWidth, lineHeight, fromBottom) {
 
 }
 
+/*Recuperer une image a partir de l'appareil et l'afficher au niveau du canevas*/
+
+var imageImporter = document.getElementById('imageImporter');
+imageImporter.addEventListener('change', loadImage, false);
+
+function loadImage(e) {
+    var reader = new FileReader();
+    reader.onload = function(event){
+        img.width = memeSize;
+        img.height = memeSize;
+        img = new Image();
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+    return false;
+}
+
+
+
+/*Telecharger l'image Memes*/
+// recuperer le name du boutton
+var download = document.getElementById('img-download');
+download.addEventListener('click', prepareDownload, false);
+function prepareDownload() {
+    var data = canvas.toDataURL();
+    download.href = data;
+}
+
+//enregistrer l'image dans un repertoire
+
+
+/*
+scale = document.getElementById('scale');
+scale.addEventListener('change', doTransform, false);
+
+rotate = document.getElementById('rotate');
+rotate.addEventListener('change', doTransform, false);
+
+function doTransform() {
+    ctx.save();
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Translate to center so transformations will apply around this point
+    ctx.translate(canvas.width/2, canvas.height/2);
+
+    // Perform scale
+    var val = document.getElementById('scale').value;
+    ctx.scale(val, val);
+
+    // Perform rotation
+    val = document.getElementById('rotate').value;
+    ctx.rotate(val*Math.PI/180);
+
+    // Reverse the earlier translation
+    ctx.translate(-canvas.width/2, -canvas.height/2);
+
+    // Finally, draw the image
+    ctx.drawImage(img, x, y);
+
+    ctx.restore();
+}
+*/
+/*
+var fileInput = document.getElementById('fileInput');
+fileInput.addEventListener('change', imageLoader(), false);
+
+function imageLoader() {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        img = new Image();
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        }
+        img.src = reader.result;
+    }
+    reader.readAsDataURL(fileInput.files[0]);
+}
+*/

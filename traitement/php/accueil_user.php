@@ -1,3 +1,8 @@
+<?php
+//if (isset($_POST['valider'])){
+
+//}
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -16,11 +21,21 @@
 
  <!--<img id="start-image" src="http://weknowmemes.com/wp-content/uploads/2011/10/great-scott-doc-back-to-the-future-drawing.jpg" alt="" />-->
 
- <a href="#"> <img id="start-image" src="../images/couchersoleil.jpg" alt="" /> </a>
+ <a href="#"> <img id="start-image" src="../images/img2.png" alt="" /> </a>
+<form action="accueil_user.php" method="post">
+    <input type='text' id='top-text' />
+    <input type='text'  id='bottom-text' />
 
- <input type='text' value='omg' id='top-text' />
- <input type='text' value='this is totally amazingg' id='bottom-text' />
- <input type="submit" id="valider" value="Enregistrer la Photo">
+    <!--<input type="submit" id="valider" value="Enregistrer la Photo"> -->
+
+    <a href="accueil_user.php" id="img-download" download="GroupLamElzoFatou.png"> Download image</a>
+
+    <input type="file" id="imageImporter" name="imageImporter" />
+    <!-- Zoom de l'image -->
+     Scale: <input id="scale" max="4" min="0.1" step="0.01" type="range" value="1" />
+    <!--  Rotate: <input id="rotate" max="180" min="-180" step="1" type="range" value="0" /> -->
+</form>
+
 
 <script src="../js/validate_image.js"></script>
 </body>
