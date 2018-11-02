@@ -78,7 +78,7 @@ if(isset($_POST['nom']) OR isset($_POST['prenom']) OR isset($_POST['login']) OR 
 </head>
 <body>
 <div class="container">
-    <?php include("menu.php"); ?>
+
     <form class="form-horizontal" action="inscription.php" method="post" onsubmit="return validate(this)">
         <fieldset>
             <h2 class="titre">Veuillez remplir les champ :</h2>
@@ -126,7 +126,15 @@ if(isset($_POST['nom']) OR isset($_POST['prenom']) OR isset($_POST['login']) OR 
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">
                     <select name="type_group" id="type_group" class="form-control input-md">
-                            <option> User</option>
+                        <?php
+                        $reponse2=$bdd->query('SELECT * FROM user_groupe WHERE id=2') or die(print_r($bdd->errorInfo()));
+                        while($donnees2=$reponse2->fetch())
+                        {
+                            ?>
+                            <option value="<?php echo htmlspecialchars($donnees2['id']);?>"><?php echo htmlspecialchars($donnees2['groupe']);?></option>
+                            <?php
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -134,6 +142,7 @@ if(isset($_POST['nom']) OR isset($_POST['prenom']) OR isset($_POST['login']) OR 
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4 control-label">
                     <input type="submit" value="Ajouter utilisateur" class="btn btn-info btn-block">
+                    <a href="../../index.php">Se Connecter</a>
                 </div>
             </div>
         </fieldset>

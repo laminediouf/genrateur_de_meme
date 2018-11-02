@@ -1,8 +1,25 @@
-img {
+/*img {
     left: -10000px;
     top: -10000px;
     position: absolute;
 }
 input {
     display: block;
+}
+*/
+.list_image{
+    position: relative;
+    overflow: scroll;
+    width: 90%;
+    height: 580px;
+}
+ul{
+    list-style: none;
+    text-decoration: none;
+}
+li img{
+    position: relative;
+    display: inline;
+    width: 100%;
+    height: 150px;
 }

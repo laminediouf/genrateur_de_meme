@@ -1,13 +1,11 @@
 
-var memeSize = 250;
+var memeSize = 300;
 
 var canvas = document.getElementById('memecanvas');
 ctx = canvas.getContext('2d');
 
 
 // Set the text style to that to which we are accustomed
-
-
 
 canvas.width = memeSize;
 canvas.height = memeSize;
@@ -117,11 +115,9 @@ function loadImage(e) {
 var download = document.getElementById('img-download');
 download.addEventListener('click', prepareDownload, false);
 function prepareDownload() {
-    var data = canvas.toDataURL();
+    var data = canvas.toDataURL("");
     download.href = data;
 }
-
-//enregistrer l'image dans un repertoire
 
 
 /*

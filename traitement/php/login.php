@@ -1,7 +1,7 @@
 <?php
-include_once('traitement/php/connexion_sql.php');
+include_once('connection.php');
 $verification=false;
-$reponse=$bdd->query('SELECT login, password, pin, type_groupe FROM user') or die(print_r($bdd->errorInfo()));
+$reponse=$bdd->query('SELECT login, password ,type_group FROM utilisateur') or die(print_r($bdd->errorInfo()));
 
 if(isset($_GET['logout']))
 {
@@ -9,28 +9,28 @@ if(isset($_GET['logout']))
     echo '<script>alert("Vous vous etes deconnecte, merci et la prochaine.")</script>';
 }
 
-if((isset($_POST['username']) AND isset($_POST['password'])) OR (isset($_POST['username']) AND isset($_POST['pin'])))
+if((isset($_POST['username']) AND isset($_POST['password'])))
 {
     //Hachage du mot de passe en sha1
     $pass_hache=sha1($_POST['password']);
-    $pass_hache2=sha1($_POST['pin']);
+    //$pass_hache2=sha1($_POST['pin']);
 
     while($donnees=$reponse->fetch())
     {
-        if(((strcmp($_POST['username'], $donnees['login'])==0) AND (strcmp($pass_hache, $donnees['password'])==0))
-            OR ((strcmp($_POST['username'], $donnees['login'])==0) AND (strcmp($pass_hache2, $donnees['pin'])==0)))
+        if(((strcmp($_POST['username'], $donnees['login'])==0) AND (strcmp($pass_hache, $donnees['password'])==0)))
+            // OR ((strcmp($_POST['username'], $donnees['login'])==0) AND (strcmp($pass_hache2, $donnees['pin'])==0)))
         {
             session_start();
             $_SESSION['user']=$_POST['username'];
             $verification=true;
-            if($donnees['type_groupe']==1)
+            if($donnees['type_group']==1)
             {
-                header('Location:traitement/php/accueil-admin.php');
+                header('Location:traitement/php/accueil.php');
             }
-            if($donnees['type_groupe']==2)
+            /*if($donnees['type_group']==2)
             {
-                header('Location:traitement/php/accueil-user.php');
-            }
+                header('Location:traitement/php/accueil.php');
+            }*/
         }
     }
     if($verification==false)
@@ -46,7 +46,7 @@ if((isset($_POST['username']) AND isset($_POST['password'])) OR (isset($_POST['u
     <link href="../css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
         body{
-           /* background: url("media/Gestock-background.png") no-repeat;*/
+            /* background: url("media/Gestock-background.png") no-repeat;*/
             background-size: cover;
             height:100%;
         }
@@ -68,17 +68,15 @@ if((isset($_POST['username']) AND isset($_POST['password'])) OR (isset($_POST['u
                     <h3 class="panel-title">Authentification <small> Generator</small></h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="accueil_user.php" method="post" onsubmit="return validate(this)">
+                    <form role="form" action="login.php" method="post" onsubmit="return validate(this)">
                         <div class="form-group">
                             <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Login">
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
                         </div>
-                        <div class="form-group">
-                            <input type="password" name="pin" id="pin" class="form-control input-sm" placeholder="Code PIN">
-                        </div>
                         <input type="submit" value="Connection" class="btn btn-info btn-block">
+
                     </form>
                 </div>
             </div>
